@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <script src="./express.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" integrity="sha512-P9vJUXK+LyvAzj8otTOKzdfF1F3UYVl13+F8Fof8/2QNb8Twd6Vb+VD52I7+87tex9UXxnzPgWA3rH96RExA7A==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+
+
+
+
+    <style>
+        .main {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 3%;
+            align-content: center;
+        }
+        
+        .box {
+            position: relative;
+            overflow: hidden;
+            height: 90vh;
+            width: 30%;
+        }
+        
+        .boxp1,
+        .boxp2 {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .boxp1 {
+            height: 40vh;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            background-color: #00BFFF;
+        }
+        
+        .boxp2 {
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            opacity: 0.9;
+            height: 40vh;
+            width: 100%;
+            position: absolute;
+            z-index: 100;
+            background-color: #87CEFA;
+        }
+        
+        #city {
+            z-index: 10;
+        }
+        
+        #date {
+            margin-top: -20px;
+            opacity: 0.8;
+        }
+        
+        .wave {
+            text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+            animation: drift 3000 infinite linear !important;
+            height: 90vh;
+            width: 90vh;
+            background-color: white;
+            opacity: 0.5;
+            position: absolute;
+            border-radius: 180px;
+            top: 40%;
+            left: -20.75%;
+        }
+        
+        #wave1 {
+            animation-name: rotate1;
+            animation-duration: 2s;
+            transform: rotate(20deg);
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes rotate1 {
+            0% {
+                transform: rotate(20deg)
+            }
+            100% {
+                transform: rotate(380deg);
+            }
+        }
+        
+        #wave2 {
+            animation-name: rotate2;
+            animation-duration: 3s;
+            transform: rotate(80deg);
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes rotate2 {
+            0% {
+                transform: rotate(80deg)
+            }
+            100% {
+                transform: rotate(440deg);
+            }
+        }
+        
+        #wave3 {
+            animation-name: rotate3;
+            animation-duration: 5s;
+            transform: rotate(150deg);
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes rotate3 {
+            from {
+                transform: rotate(150deg)
+            }
+            to {
+                transform: rotate(510deg);
+            }
+        }
+        
+        #wave4 {
+            animation-name: rotate4;
+            animation-duration: 2s;
+            transform: rotate(200deg);
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes rotate4 {
+            from {
+                transform: rotate(200deg)
+            }
+            to {
+                transform: rotate(560deg);
+            }
+        }
+        
+        #wave5 {
+            animation-name: rotate5;
+            animation-duration: 3s;
+            transform: rotate(260deg);
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes rotate5 {
+            from {
+                transform: rotate(260deg)
+            }
+            to {
+                transform: rotate(620deg);
+            }
+        }
+        
+        #wave6 {
+            animation-name: rotate6;
+            animation-duration: 5s;
+            transform: rotate(310deg);
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes rotate6 {
+            from {
+                transform: rotate(310deg)
+            }
+            to {
+                transform: rotate(670deg);
+            }
+        }
+        
+        #move {
+            animation-name: move;
+            animation-iteration-count: infinite;
+            animation-duration: 3s;
+            margin-right: 30px;
+        }
+        
+        @keyframes move {
+            0% {
+                transform: translateX(0px);
+            }
+            50% {
+                transform: translateX(30px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+        
+        .options {
+            height: 40px;
+            width: 110px;
+            background: linear-gradient(-30deg, #0b1b3d 50%, #08142b 50%);
+            margin: 12px;
+            display: inline-block;
+            -webkit-transform: translate(0%, 0%);
+            transform: translate(0%, 0%);
+            overflow: hidden;
+            color: #d4e0f7;
+            font-size: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            -webkit-box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .options::before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #8592ad;
+            opacity: 0;
+            -webkit-transition: .2s opacity ease-in-out;
+            transition: .2s opacity ease-in-out;
+        }
+        
+        .options:hover::before {
+            opacity: 0.2;
+        }
+        
+        .options:hover {
+            font-weight: 700 !important;
+            cursor: pointer;
+            border-radius: 50px;
+            text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+            transition: all 0.4s ease 0s;
+            color: white !important;
+            background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+            border: 1px solid white;
+        }
+        
+        #top {
+            margin-top: 20px;
+        }
+        
+        wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 300px;
+            background-color: skyblue;
+        }
+        
+        .search-input {
+            width: 40%;
+            height: 40px;
+            font-size: 1.3rem;
+            border: 1px solid grey;
+            border-radius: 20px;
+            padding: 5px 20px 2px;
+            margin: auto;
+        }
+        
+        .search-input:hover,
+        .search-input:focus {
+            outline: none;
+            border: none;
+            box-shadow: 0px 0px 3px black;
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+    <center id="top">
+        <div class='wrapper'>
+            <input placeholder="Enter the Location" type='search' id="inp" class='search-input'>
+        </div><button class="options" id="b2" onclick="submit()">Submit</button>
+    </center>
+    <div class="main">
+
+        <div class="box">
+
+            <div class="boxp1">
+                <p id="status">
+                    <i class="fas fa-sun" style="margin-top: -50px;text-shadow: 0px 0px 6px rgba(255, 255, 255, 1); font-size:55px; color: white;"></i>
+                </p>
+                <h1 id="st">{%status%} in {%city%}</h1>
+            </div>
+
+
+            <div class="boxp2">
+                <h2 id="city">{%city%}, {%country%}</h2>
+                <h4 id="date"></h4>
+                <h2 id="temp">{%temp%}&deg; C</h2>
+                <h4 id="date">Min {%min%} &nbsp;|&nbsp; Max {%max%}</h4>
+            </div>
+
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+            <div class="wave" id="wave5"></div>
+            <div class="wave" id="wave6"></div>
+        </div>
+    </div>
+</body>
+<script>
+    var month = ["January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+    ];
+
+    var date = new Date();
+    var mer = " am ";
+    var hours = date.getHours();
+    if (date.getHours() > 12) {
+        mer = " pm ";
+        hours = hours - 12;
+    }
+
+    var stats = document.getElementById("status");
+    var st = document.getElementById("st").innerText.toString();
+
+    if (st.includes("Thunderstorm")) {
+        stats.innerHTML = "<i class='fas fa-cloud-showers-heavy' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
+    } else if (st.includes("Clouds")) {
+        stats.innerHTML = "<i class='fas fa-cloud' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
+    } else if (st.includes("Rain")) {
+        stats.innerHTML = "<i class='fas fa-cloud-rain' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
+    } else {
+        stats.innerHTML = "<i class='fas fa-sun' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
+    }
+
+
+
+
+    var inp = document.getElementById("inp");
+
+    var submit = () => {
+        console.log(inp.value);
+        var hr = "?name=" + inp.value;
+        console.log(hr);
+        window.location.href = hr;
+    }
+    var cdate = date.getDate() + "/" + month[date.getMonth()] + "/" + date.getFullYear() + " || " + hours + " : " + date.getMinutes() + " : " + date.getSeconds() + mer;
+    console.log(cdate);
+    document.getElementById("date").innerText = cdate;
+    setInterval(() => {
+        var date = new Date();
+        var mer = " am ";
+        var hours = date.getHours();
+        if (date.getHours() > 12) {
+            mer = " pm ";
+            hours = hours - 12;
+        }
+
+        var cdate = date.getDate() + "/" + month[date.getMonth()] + "/" + date.getFullYear() + " || " + hours + " : " + date.getMinutes() + " : " + date.getSeconds() + mer;
+        console.log(cdate);
+        document.getElementById("date").innerText = cdate;
+    }, 1000);
+</script>
+
+</html>
