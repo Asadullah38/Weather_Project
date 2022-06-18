@@ -17,7 +17,7 @@ function replaceVal(tempval, val) {
 }
 
 
-app.get("/", (req, res) => {
+app.get("/?name=Lahore", (req, res) => {
     var city = req.query.name;
     requests(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=09218d9fb44bd06f3210271b29385683`)
         .on('data', (chunk) => {
