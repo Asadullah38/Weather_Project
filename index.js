@@ -2,7 +2,7 @@ import express from "express";
 var app = express();
 var port = process.env.PORT || 8000;
 import fs, { readFileSync } from "fs";
-const homefile = fs.readFileSync("weather.html", "utf-8");
+const homefile = fs.readFileSync("index.html", "utf-8");
 import requests from "requests";
 
 
@@ -21,8 +21,6 @@ var a = 0;
 var city = "Sargodha";
 app.get("/", (req, res) => {
     if (city != "") {
-
-
         if (a === 0) {
             req.query.name = "Lahore";
             a++;
