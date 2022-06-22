@@ -10,7 +10,7 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
-    <script src="./express.js"></script>
+    <script src="./index.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" integrity="sha512-P9vJUXK+LyvAzj8otTOKzdfF1F3UYVl13+F8Fof8/2QNb8Twd6Vb+VD52I7+87tex9UXxnzPgWA3rH96RExA7A==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
 
@@ -30,12 +30,15 @@
             position: relative;
             overflow: hidden;
             height: 90vh;
-            width: 30%;
+            width: 40%;
         }
         
         .boxp1,
         .boxp2 {
+            padding-right: 10%;
+            padding-left: 10%;
             display: flex;
+            text-align: center;
             align-items: center;
             flex-direction: column;
             justify-content: center;
@@ -53,7 +56,7 @@
             border-bottom-right-radius: 50px;
             opacity: 0.9;
             height: 40vh;
-            width: 100%;
+            width: 80%;
             position: absolute;
             z-index: 100;
             background-color: #87CEFA;
@@ -64,21 +67,21 @@
         }
         
         #date {
-            margin-top: -20px;
             opacity: 0.8;
+            margin-top: -10%;
         }
         
         .wave {
             text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
             animation: drift 3000 infinite linear !important;
-            height: 90vh;
-            width: 90vh;
+            height: 125vh;
+            width: 125vh;
             background-color: white;
             opacity: 0.5;
             position: absolute;
-            border-radius: 180px;
+            border-radius: 220px;
             top: 40%;
-            left: -20.75%;
+            left: -15vmin;
         }
         
         #wave1 {
@@ -177,25 +180,6 @@
             }
         }
         
-        #move {
-            animation-name: move;
-            animation-iteration-count: infinite;
-            animation-duration: 3s;
-            margin-right: 30px;
-        }
-        
-        @keyframes move {
-            0% {
-                transform: translateX(0px);
-            }
-            50% {
-                transform: translateX(30px);
-            }
-            100% {
-                transform: translateX(0px);
-            }
-        }
-        
         .options {
             height: 40px;
             width: 110px;
@@ -270,6 +254,136 @@
             border: none;
             box-shadow: 0px 0px 3px black;
         }
+        
+        #min {
+            opacity: 0.8;
+            margin-top: -15%;
+        }
+        
+        #status {
+            margin-top: 5%;
+            flex: 0.1;
+        }
+        
+        #desc {
+            flex: 0.9;
+            font-size: 25px;
+        }
+        
+        #f1,
+        #f2 {
+            flex: 0;
+        }
+        
+        @media only screen and (max-width: 1200px) {
+            .wave {
+                height: 110vh;
+                width: 110vh;
+                top: 35%;
+                left: -20%;
+            }
+        }
+        
+        @media only screen and (max-width: 1080px) {
+            .box {
+                width: 60%;
+            }
+            .wave {
+                left: -5%;
+            }
+        }
+        
+        @media only screen and (max-width: 900px) {
+            .wave {
+                height: 100vh;
+                width: 100vh;
+                left: -8%;
+            }
+        }
+        
+        @media only screen and (max-width: 810px) {
+            .wave {
+                height: 100vh;
+                width: 100vh;
+                left: -10%;
+            }
+        }
+        
+        @media only screen and (max-width: 734px) {
+            .box {
+                width: 70%;
+            }
+            #desc {
+                font-size: 20px;
+            }
+            .wave {
+                height: 120vh;
+                width: 120vh;
+                left: -20%;
+                top: 40%;
+            }
+        }
+        
+        @media only screen and (max-width: 660px) {
+            .wave {
+                height: 120vh;
+                width: 120vh;
+                left: -25%;
+                top: 40%;
+            }
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .box {
+                width: 80%;
+            }
+            #desc {
+                font-size: 20px;
+            }
+            .wave {
+                top: 35%;
+                left: -25%;
+            }
+        }
+        
+        @media only screen and (max-width: 525px) {
+            .box {
+                width: 80%;
+            }
+            #desc {
+                font-size: 20px;
+            }
+            .wave {
+                height: 105vh;
+                width: 105vh;
+                top: 35%;
+                left: -25%;
+            }
+        }
+        
+        @media only screen and (max-width: 450px) {
+            .box {
+                width: 90%;
+            }
+            #desc {
+                font-size: 18px;
+            }
+            .wave {
+                left: -30%;
+            }
+        }
+        
+        @media only screen and (max-width: 375px) {
+            .box {
+                width: 90%;
+            }
+            #desc {
+                font-size: 14px;
+            }
+            .wave {
+                left: -50%;
+            }
+        }
     </style>
 
 
@@ -281,7 +395,7 @@
     <center id="top">
         <div class='wrapper'>
             <input placeholder="Enter the Location" type='search' id="inp" class='search-input'>
-        </div><button class="options" id="b2" onclick="submit()">Submit</button>
+        </div><button class="options" onclick="sub()" id="b2">Submit</button>
     </center>
     <div class="main">
 
@@ -289,25 +403,33 @@
 
             <div class="boxp1">
                 <p id="status">
-                    <i class="fas fa-sun" style="margin-top: -50px;text-shadow: 0px 0px 6px rgba(255, 255, 255, 1); font-size:55px; color: white;"></i>
+                    <i class="fas fa-sun" style="text-shadow: 0px 0px 6px rgba(255, 255, 255, 1); font-size:55px; color: white;"></i>
                 </p>
-                <h1 id="st">{%status%} in {%city%}</h1>
+                <h1 id="desc">{%status%} in {%city%}</h1>
             </div>
 
 
             <div class="boxp2">
-                <h2 id="city">{%city%}, {%country%}</h2>
-                <h4 id="date"></h4>
-                <h2 id="temp">{%temp%}&deg; C</h2>
-                <h4 id="date">Min {%min%} &nbsp;|&nbsp; Max {%max%}</h4>
-            </div>
+                <div id="f1">
 
-            <div class="wave" id="wave1"></div>
-            <div class="wave" id="wave2"></div>
-            <div class="wave" id="wave3"></div>
-            <div class="wave" id="wave4"></div>
-            <div class="wave" id="wave5"></div>
-            <div class="wave" id="wave6"></div>
+                    <h2 id="city">{%city%}, {%country%}</h2>
+                    <h4 id="date"></h4>
+                </div>
+                <div id="f2">
+
+                    <h2 id="temp">{%temp%}&deg; C</h2>
+                    <h4 id="min">Min {%min%} &nbsp;|&nbsp; Max {%max%}</h4>
+                </div>
+            </div>
+            <center>
+
+                <div class="wave" id="wave1"></div>
+                <div class="wave" id="wave2"></div>
+                <div class="wave" id="wave3"></div>
+                <div class="wave" id="wave4"></div>
+                <div class="wave" id="wave5"></div>
+                <div class="wave" id="wave6"></div>
+            </center>
         </div>
     </div>
 </body>
@@ -315,7 +437,6 @@
     var month = ["January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"
     ];
-
 
     var date = new Date();
     var mer = " am ";
@@ -325,29 +446,19 @@
         hours = hours - 12;
     }
 
-    var stats = document.getElementById("status");
-    var st = document.getElementById("st").innerText.toString();
+    function sub() {
+        var inp = document.getElementById("inp").value;
+        if (inp != "") {
 
-    if (st.includes("Thunderstorm")) {
-        stats.innerHTML = "<i class='fas fa-cloud-showers-heavy' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
-    } else if (st.includes("Clouds")) {
-        stats.innerHTML = "<i class='fas fa-cloud' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
-    } else if (st.includes("Rain")) {
-        stats.innerHTML = "<i class='fas fa-cloud-rain' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
-    } else {
-        stats.innerHTML = "<i class='fas fa-sun' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);margin-top: -50px; font-size:55px; color: white;'></i>"
-    }
+            var hr = "?name=" + inp;
+            console.log(hr);
+            window.location.href = hr;
+        } else {
+            alert("Enter a Valid City Name");
 
+            var hr = "?name=Lahore";
 
-
-
-    var inp = document.getElementById("inp");
-
-    var submit = () => {
-        console.log(inp.value);
-        var hr = "?name=" + inp.value;
-        console.log(hr);
-        window.location.href = hr;
+        }
     }
     var cdate = date.getDate() + "/" + month[date.getMonth()] + "/" + date.getFullYear() + " || " + hours + " : " + date.getMinutes() + " : " + date.getSeconds() + mer;
     console.log(cdate);
@@ -362,9 +473,24 @@
         }
 
         var cdate = date.getDate() + "/" + month[date.getMonth()] + "/" + date.getFullYear() + " || " + hours + " : " + date.getMinutes() + " : " + date.getSeconds() + mer;
-        console.log(cdate);
+
         document.getElementById("date").innerText = cdate;
     }, 1000);
+
+
+    var stats = document.getElementById("status");
+    var st = document.getElementById("desc").innerHTML;
+    console.log(st);
+
+    if (st.includes("Thunderstorm")) {
+        stats.innerHTML = "<i class='fas fa-cloud-showers-heavy' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1); font-size:55px; color: white;'></i>"
+    } else if (st.includes("Clouds")) {
+        stats.innerHTML = "<i class='fas fa-cloud' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1); font-size:55px; color: white;'></i>"
+    } else if (st.includes("Rain")) {
+        stats.innerHTML = "<i class='fas fa-cloud-rain' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1); font-size:55px; color: white;'></i>"
+    } else {
+        stats.innerHTML = "<i class='fas fa-sun' style='text-shadow: 0px 0px 6px rgba(255, 255, 255, 1); font-size:55px; color: white;'></i>"
+    }
 </script>
 
 </html>
